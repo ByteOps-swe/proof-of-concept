@@ -5,7 +5,8 @@ from datetime import datetime
 from random import uniform
 from kafka import KafkaProducer
 
-while True:
+if __name__ == "__main__":
+    
     print("Script is being run directly.")
     num_sensors = 5  # Numero di sensori
     sensors_temp = []
@@ -25,6 +26,5 @@ while True:
 
     for sensor in sensors_temp:
         sensor.join()
-
     for sensor in sensors_hum:
         sensor.join()
