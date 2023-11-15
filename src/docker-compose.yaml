@@ -2,14 +2,14 @@ version: '2'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
-    container_name: ktech_zookeeper
+    container_name: city_zookeeper
     ports:
      - "2181:2181"
     restart: unless-stopped
 
   kafka:
     image: wurstmeister/kafka
-    container_name: ktech_kafka
+    container_name: city_kafka
     ports:
      - "9092:9092"
     expose:
@@ -18,7 +18,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka  # Use the name of the Kafka service as the hostname
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_CREATE_TOPICS: "test_topic:1:1"
+      KAFKA_CREATE_TOPICS: "city_topic:1:1"
       KAFKA_LOG_RETENTION_HOURS: 1
       KAFKA_LOG_RETENTION_BYTES: 4073741824
       KAFKA_LOG_SEGMENT_BYTES: 1073741824
@@ -29,11 +29,13 @@ services:
 
   data_producer:
     image: python:3.8
-    container_name: ktech_data_producer
+    container_name: city_data_producer
     volumes:
      - ./producer.py:/app/producer.py
      - ./sensore.py:/app/sensore.py
      - ./temperature.py:/app/temperature.py
+     - ./humidity.py:/app/humidity.py
+
 
     depends_on:
      - kafka
@@ -41,7 +43,7 @@ services:
 
   data_consumer:
       image: python:3.8
-      container_name: ktech_data_consumer
+      container_name: city_data_consumer
       volumes:
       - ./consumer.py:/app/consumer.py
       depends_on:

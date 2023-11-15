@@ -3,7 +3,7 @@ from kafka import KafkaConsumer, KafkaProducer
 
 kafka_server = ["kafka:9092"]  # Use the name of the Kafka service as the hostname
 
-topic = "test_topic"
+topic = "city_topic"
 
 consumer = KafkaConsumer(
     bootstrap_servers=kafka_server,
