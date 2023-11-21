@@ -27,7 +27,6 @@ class Humidity(Sensore):
             "humidity": f"{round(self.current_humidity, 2)}%",
             "timestamp": str(datetime.now())
         }
-        print(f"Sending temperature data from {self.sensor_id}: {data}")
+        print(f"Sending humidity data from {self.sensor_id}: {data}")
         self.producer.send(self.topic, data)
         self.producer.flush()
-
