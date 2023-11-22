@@ -41,7 +41,7 @@ services:
       - ./producer.py:/app/producer.py
       - ./sensore.py:/app/sensore.py
       - ./temperature.py:/app/temperature.py
-     # - ./humidity.py:/app/humidity.py
+      - ./humidity.py:/app/humidity.py
     depends_on:
       - kafka
     command: ["sh", "-c", "pip install kafka-python==2.0.2 && python /app/producer.py"]
