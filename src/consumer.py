@@ -42,7 +42,6 @@ clickhouse_client.execute('''
     ORDER BY timestamp
 ''')
 
-
 # Chiudi la connessione ClickHouse alla fine
 clickhouse_client.disconnect()
 
@@ -58,47 +57,40 @@ consumer.subscribe([topic])
 # Connessione al client ClickHouse
 clickhouse_client = Client(host='city_clickhouse')
 
+def convert_timestamp(timestamp):
+    timestamp_value = datetime.datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f')
+    return timestamp_value.strftime('%Y-%m-%d %H:%M:%S')
+
+def insert_temperature_data(clickhouse_client, data):
+    temperature_value = float(data['temperature'].rstrip('C'))
+    timestamp_formatted = convert_timestamp(data['timestamp'])
+    clickhouse_client.execute(
+        f"INSERT INTO dynamic_table_temperature VALUES ('{data['sensor_id']}', "
+        f"'{data['type']}', {temperature_value}, '{data['season']}', '{timestamp_formatted}')"
+    )
+    logger.info("Dati sulla temperatura inseriti correttamente.")
+
+def insert_humidity_data(clickhouse_client, data):
+    humidity_value = float(data['humidity'].rstrip('%'))
+    timestamp_formatted = convert_timestamp(data['timestamp'])
+    clickhouse_client.execute(
+        f"INSERT INTO dynamic_table_humidity VALUES ('{data['sensor_id']}', "
+        f"'{data['type']}', {humidity_value}, '{timestamp_formatted}')"
+    )
+    logger.info("Dati sull'umidità inseriti correttamente.")
+
 for message in consumer:
     try:
         data = message.value
-        print("Received data from Kafka:", data)
-
-        if data['type'] == 'Temperature Sensor':
-            # Conversione del formato della temperatura in un valore numerico
-            temperature_value = float(data['temperature'].rstrip('C'))
-
-            # Formattazione della data e ora nel formato richiesto da ClickHouse
-            timestamp_value = datetime.datetime.strptime(data['timestamp'], '%Y-%m-%d %H:%M:%S.%f')
-
-            # Modifica del formato della data e ora per renderlo compatibile con ClickHouse
-            timestamp_formatted = timestamp_value.strftime('%Y-%m-%d %H:%M:%S')
-
-            # Esecuzione della query di inserimento per i dati sulla temperatura
-            clickhouse_client.execute(
-                f"INSERT INTO dynamic_table_temperature VALUES ('{data['sensor_id']}', "
-                f"'{data['type']}', {temperature_value}, '{data['season']}', '{timestamp_formatted}')"
-            )
-            
-            logger.info("Dati sulla temperatura inseriti correttamente.")
-
-        elif data['type'] == 'Humidity Sensor':
-            # Conversione del formato dell'umidità in un valore numerico
-            humidity_value = float(data['humidity'].rstrip('%'))
-
-            # Formattazione della data e ora nel formato richiesto da ClickHouse
-            timestamp_value = datetime.datetime.strptime(data['timestamp'], '%Y-%m-%d %H:%M:%S.%f')
-
-            # Modifica del formato della data e ora per renderlo compatibile con ClickHouse
-            timestamp_formatted = timestamp_value.strftime('%Y-%m-%d %H:%M:%S')
-
-            # Esecuzione della query di inserimento per i dati sull'umidità
-            clickhouse_client.execute(
-                f"INSERT INTO dynamic_table_humidity VALUES ('{data['sensor_id']}', "
-                f"'{data['type']}', {humidity_value}, '{timestamp_formatted}')"
-            )
-
-            logger.info("Dati sull'umidità inseriti correttamente.")
-        
+        logger.debug("Received data from Kafka: %s", data)
+        data_type = data['type'].lower()
+        if data_type == 'temperature sensor':
+            insert_temperature_data(clickhouse_client, data)
+        elif data_type == 'humidity sensor':
+            insert_humidity_data(clickhouse_client, data)
+        else:
+            logger.warning(f"Tipo non riconosciuto: {data['type']}")
+            continue
     except Exception as e:
         logger.error(f"Errore durante l'inserimento dei dati: {e}. Dati ricevuti: {data}")
 
