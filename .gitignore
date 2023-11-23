@@ -1,1 +1,19 @@
-*.DS_Store
+# Ignora i file di configurazione specifici dell'IDE (es. Visual Studio Code)
+.vscode/
+
+# Ignora i file generati dal linguaggio di programmazione (es. file compilati Python)
+__pycache__/
+
+# Ignora i file di configurazione dell'ambiente virtuale Python (se presente)
+.env/
+
+# Ignora file temporanei e cache
+*.log
+*.cache
+
+# Ignora file generati durante l'esecuzione del programma (es. file di output, log, ecc.)
+*.dist
+
+# Ignora i file di sistema
+.DS_Store
+Thumbs.db
