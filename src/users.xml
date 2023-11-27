@@ -28,6 +28,7 @@
 
     <!-- Users and ACL. -->
     <users>
+        
         <!-- If user name was not specified, 'default' user is used. -->
         <default>
             <!-- See also the files in users.d directory where the password can be overridden.
@@ -88,7 +89,19 @@
                  All results of DNS requests are cached till server restart.
             -->
             <networks>
-                <ip>::/0</ip>
+            
+                <secure>
+                    <enabled>true</enabled>
+                    <!-- Configura il percorso del certificato del server -->
+                    <server_cert>/path/to/server.crt</server_cert>
+                    <!-- Configura il percorso della chiave privata del server -->
+                    <server_key>/path/to/server.key</server_key>
+                    <!-- Configura il percorso del certificato della CA (Certificate Authority) -->
+                    <client_ca>/path/to/ca.crt</client_ca>
+                    <!-- Puoi impostare la verifica del client se lo desideri -->
+                    <require_secure_authentication>false</require_secure_authentication>
+                </secure>
+
             </networks>
 
             <!-- Settings profile for user. -->

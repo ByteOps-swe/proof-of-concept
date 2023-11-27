@@ -23,9 +23,8 @@ services:
       KAFKA_LOG_RETENTION_BYTES: 4073741824
       KAFKA_LOG_SEGMENT_BYTES: 1073741824
       KAFKA_RETENTION_CHECK_INTERVAL_MS: 300000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+
 
   clickhouse:
     image: yandex/clickhouse-server
@@ -34,10 +33,23 @@ services:
       - "9000:9000"
     restart: unless-stopped
 
+
+  grafana:
+    image: grafana/grafana
+    container_name: city_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+    depends_on:
+      - clickhouse
+    restart: unless-stopped
+
+
   data_producer:
     image: python:3.8
     container_name: city_data_producer
-    volumes:
+    volumes:  #
       - ./producer.py:/app/producer.py
       - ./sensore.py:/app/sensore.py
       - ./temperature.py:/app/temperature.py
@@ -45,6 +57,7 @@ services:
     depends_on:
       - kafka
     command: ["sh", "-c", "pip install kafka-python==2.0.2 && python /app/producer.py"]
+
 
   data_consumer:
     image: python:3.8
