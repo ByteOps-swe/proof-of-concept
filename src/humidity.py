@@ -5,8 +5,8 @@ from random import uniform
 
 class Humidity(Sensore):
 
-    def __init__(self, sensor_id, topic, initial_humidity=30.0):
-        super().__init__(sensor_id, "Humidity Sensor", topic)                
+    def __init__(self, sensor_id, topic, latitude, longitude, initial_humidity=30.0):
+        super().__init__(sensor_id, "Humidity Sensor", latitude, longitude, topic)                
         self.current_humidity = initial_humidity
 
     def run(self):
@@ -25,6 +25,8 @@ class Humidity(Sensore):
             "sensor_id": self.sensor_id,
             "type": self.sensor_type,
             "humidity": f"{round(self.current_humidity, 2)}%",
+            "latitude": self.latitude,
+            "longitude": self.longitude,
             "timestamp": str(datetime.now())
         }
         print(f"Sending humidity data from {self.sensor_id}: {data}")

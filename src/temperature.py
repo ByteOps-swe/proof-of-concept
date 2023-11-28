@@ -5,8 +5,8 @@ from random import uniform
 
 class Temperature(Sensore):
 
-    def __init__(self, sensor_id, topic):
-        super().__init__(sensor_id, "Temperature Sensor", topic)
+    def __init__(self, sensor_id, latitude, longitude, topic):
+        super().__init__(sensor_id, "Temperature Sensor", latitude, longitude, topic)
         self.current_temperature = None
         self.current_season = None
         self.set_initial_temperature()
@@ -61,6 +61,9 @@ class Temperature(Sensore):
             "type": self.sensor_type,
             "temperature": f"{round(self.current_temperature, 2)}C",
             "season": self.current_season,
+            #"location": self.location,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
             "timestamp": str(datetime.now())
         }
 

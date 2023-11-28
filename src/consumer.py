@@ -23,6 +23,8 @@ clickhouse_client.execute('''
         `type` String,
         `temperature` Decimal(4, 2),
         `season` String,
+        `latitude` Float64,
+        `longitude` Float64,
         `timestamp` DateTime
     )
     ENGINE = MergeTree
@@ -36,6 +38,8 @@ clickhouse_client.execute('''
         `sensor_id` String,
         `type` String,
         `humidity` Decimal(5, 2),
+        `latitude` Float64,
+        `longitude` Float64,
         `timestamp` DateTime   
     )
     ENGINE = MergeTree
@@ -66,7 +70,7 @@ def insert_temperature_data(clickhouse_client, data):
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
         f"INSERT INTO dynamic_table_temperature VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {temperature_value}, '{data['season']}', '{timestamp_formatted}')"
+        f"'{data['type']}', {temperature_value}, '{data['season']}', '{data['latitude']}' , '{data['longitude']}' , '{timestamp_formatted}')"
     )
     logger.info("Dati sulla temperatura inseriti correttamente.")
 
@@ -75,7 +79,7 @@ def insert_humidity_data(clickhouse_client, data):
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
         f"INSERT INTO dynamic_table_humidity VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {humidity_value}, '{timestamp_formatted}')"
+        f"'{data['type']}', {humidity_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
     )
     logger.info("Dati sull'umidità inseriti correttamente.")
 
