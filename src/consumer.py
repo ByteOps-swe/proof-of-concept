@@ -1,3 +1,5 @@
+#consumer.py
+
 import json
 from kafka import KafkaConsumer
 from clickhouse_driver import Client

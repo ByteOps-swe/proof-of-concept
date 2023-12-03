@@ -1,3 +1,5 @@
+#producer.py
+
 from temperature import Temperature
 from humidity import Humidity
 from datetime import datetime
@@ -14,11 +16,11 @@ if __name__ == "__main__":
     longitudes = [11.876761, 11.5354214, 12.3155151, 10.9916215, 12.243044]
 
     for i in range(num_sensors):
-        id_string = f"tem_sensor{i+1}"
-        id_city = f"city{i+1}"
-        sensor = Temperature(sensor_id=id_string, topic="city_topic", latitude=latitudes[i], longitude=longitudes[i])
-        sensor.start()  # Avvia il thread del sensore
-        sensors_temp.append(sensor)
+        id_string_temp = f"tem_sensor{i+1}"
+        sensor_temp = Temperature(sensor_id=id_string_temp, latitude=latitudes[i], longitude=longitudes[i], topic="city_topic")
+        sensor_temp.start()
+        sensors_temp.append(sensor_temp)
+        
         
     for i in range(num_sensors):
        id_string = f"hum_sensor{i+1}"

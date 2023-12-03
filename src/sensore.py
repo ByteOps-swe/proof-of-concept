@@ -1,3 +1,5 @@
+#sensore.py
+
 import json
 from kafka import KafkaProducer
 from threading import Thread
