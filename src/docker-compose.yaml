@@ -40,29 +40,26 @@ services:
   grafana:
     image: grafana/grafana
     container_name: city_grafana
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_USER=admin
       - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
     depends_on:
       - clickhouse
     volumes:
-      - ./grafana/provisioning/datasources:/app/grafana/provisioning/datasources
-    restart: unless-stopped
+      - grafana-storage:/var/lib/grafana
+      - provisioning:/app/grafana/provisioning
 
 
   data_producer:
     image: python:3.8
     container_name: city_data_producer
     volumes:
-      - ./producer.py:/app/producer.py
-      - ./sensore.py:/app/sensore.py
-      - ./temperature.py:/app/temperature.py
-      - ./humidity.py:/app/humidity.py
+      - ./producer:/app/producer
     depends_on:
       - kafka
-    command: ["sh", "-c", "pip install kafka-python==2.0.2 && python /app/producer.py"]
+    command: ["sh", "-c", "pip install kafka-python==2.0.2 && python /app/producer/producer.py"]
 
 
   data_consumer:
@@ -74,3 +71,8 @@ services:
       - kafka
       - clickhouse
     command: ["sh", "-c", "pip install kafka-python==2.0.2 clickhouse-driver==0.2.0 && python /app/consumer.py"]
+
+volumes:
+  grafana-storage: {}
+  provisioning: {}
+  dashboard: {}
