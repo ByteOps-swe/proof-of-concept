@@ -1,6 +1,6 @@
 #docker-compose.yaml
 
-version: '2'
+version: '3.6'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -46,6 +46,8 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
     depends_on:
       - clickhouse
+    volumes:
+      - ./grafana/provisioning:/app/grafana/provisioning
     restart: unless-stopped
 
 
