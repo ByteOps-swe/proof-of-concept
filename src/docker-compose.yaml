@@ -3,7 +3,7 @@
 version: '3.6'
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: zookeeper
     container_name: city_zookeeper
     ports:
       - "2181:2181"
@@ -11,30 +11,31 @@ services:
 
 
   kafka:
-    image: wurstmeister/kafka
+    image: bitnami/kafka
     container_name: city_kafka
     ports:
       - "9092:9092"
-    expose:
-      - "9093"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka  # Use the name of the Kafka service as the hostname
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_CREATE_TOPICS: "city_topic:1:1"
-      KAFKA_LOG_RETENTION_HOURS: 1
-      KAFKA_LOG_RETENTION_BYTES: 4073741824
-      KAFKA_LOG_SEGMENT_BYTES: 1073741824
-      KAFKA_RETENTION_CHECK_INTERVAL_MS: 300000
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CREATE_TOPICS=city_topic:1:1
+      - KAFKA_LOG_RETENTION_HOURS=1
+      - KAFKA_LOG_RETENTION_BYTES=4073741824
+      - KAFKA_LOG_SEGMENT_BYTES=1073741824
+      - KAFKA_RETENTION_CHECK_INTERVAL_MS=300000
     restart: unless-stopped
 
 
+
   clickhouse:
-    image: yandex/clickhouse-server
+    image: bitnami/clickhouse
     container_name: city_clickhouse
     ports:
       - "9000:9000"
     restart: unless-stopped
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
 
 
   grafana:
