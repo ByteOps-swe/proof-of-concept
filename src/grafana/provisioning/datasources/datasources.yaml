@@ -6,7 +6,4 @@ datasources:
       defaultDatabase: default
       port: 9000
       server: localhost
-      username: 
       tlsSkipVerify: false
-    secureJsonData:
-      password: 

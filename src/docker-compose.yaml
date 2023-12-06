@@ -44,10 +44,11 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
+      - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
     depends_on:
       - clickhouse
     volumes:
-      - ./grafana/provisioning:/app/grafana/provisioning
+      - ./grafana/provisioning/datasources:/app/grafana/provisioning/datasources
     restart: unless-stopped
 
 
