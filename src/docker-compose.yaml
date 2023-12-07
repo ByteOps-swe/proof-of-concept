@@ -76,4 +76,4 @@ services:
 volumes:
   grafana-storage: {}
   provisioning: {}
-  dashboard: {}
+  
