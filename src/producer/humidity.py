@@ -19,13 +19,16 @@ class Humidity(Sensore):
         if Humidity.shared_humidity is None:
             Humidity.shared_humidity = self.current_humidity
 
+
     def run(self):
         while True:
             self.send_message()
-            sleep(5)
+            sleep(10)
+
 
     def set_initial_humidity(self, initial_humidity):
         self.current_humidity = initial_humidity
+
 
     def send_message(self):
         base_humidity_change = round(uniform(-MAX_HUMIDITY_CHANGE, MAX_HUMIDITY_CHANGE), 2)

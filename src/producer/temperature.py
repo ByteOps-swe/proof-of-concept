@@ -22,10 +22,12 @@ class Temperature(Sensore):
         if Temperature.shared_temperature is None:
             Temperature.shared_temperature = self.set_initial_temperature()
 
+
     def run(self):
         while True:
             self.send_message()
             sleep(10)
+
 
     def set_initial_temperature(self):
         current_month = datetime.now().month
@@ -41,6 +43,7 @@ class Temperature(Sensore):
         else:
             self.current_season = "Winter"
             return 0.0
+
 
     def update_season(self):
         current_month = datetime.now().month
@@ -86,7 +89,7 @@ class Temperature(Sensore):
         # Aggiornamento temperatura con controlli effettuati
         Temperature.shared_temperature = new_temperature
         self.current_temperature = new_temperature
-
+        
         data = {
             "sensor_id": self.sensor_id,
             "type": self.sensor_type,
@@ -96,7 +99,7 @@ class Temperature(Sensore):
             "longitude": self.longitude,
             "timestamp": str(datetime.now())
         }
-
+        
         print(f"Sending temperature data from {self.sensor_id}: {data}")
         self.producer.send(self.topic, data)
         self.producer.flush()

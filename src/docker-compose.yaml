@@ -27,7 +27,6 @@ services:
     restart: unless-stopped
 
 
-
   clickhouse:
     image: bitnami/clickhouse
     container_name: city_clickhouse
@@ -76,4 +75,3 @@ services:
 volumes:
   grafana-storage: {}
   provisioning: {}
-  dashboard: {}
