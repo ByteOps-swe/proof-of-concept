@@ -48,8 +48,9 @@ services:
     depends_on:
       - clickhouse
     volumes:
-      - grafana-storage:/var/lib/grafana
-      - provisioning:/app/grafana/provisioning
+      #- grafana-storage:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
 
 
   data_producer:
