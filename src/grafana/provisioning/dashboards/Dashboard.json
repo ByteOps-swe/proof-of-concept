@@ -735,7 +735,7 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Temperature Graph",
       "type": "timeseries"
     },
     {
@@ -1079,7 +1079,7 @@
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Humidity Graph",
       "type": "timeseries"
     },
     {
@@ -1087,10 +1087,11 @@
         "type": "grafana-clickhouse-datasource",
         "uid": "PDEE91DDB90597936"
       },
+      "description": "Stato (attivo o spento) delle colonnine per caricare le auto",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "hideFrom": {
@@ -1099,7 +1100,23 @@
               "viz": false
             }
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "False"
+                },
+                "1": {
+                  "color": "dark-green",
+                  "index": 1,
+                  "text": "True"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1136,10 +1153,10 @@
         "layers": [
           {
             "config": {
-              "showLegend": true,
+              "showLegend": false,
               "style": {
                 "color": {
-                  "field": "value",
+                  "field": "state",
                   "fixed": "dark-green"
                 },
                 "opacity": 0.4,
@@ -1150,7 +1167,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 16,
+                  "fixed": 20,
                   "max": 15,
                   "min": 2
                 },
@@ -1161,6 +1178,11 @@
                 "symbolAlign": {
                   "horizontal": "center",
                   "vertical": "center"
+                },
+                "text": {
+                  "field": "state",
+                  "fixed": "",
+                  "mode": "field"
                 },
                 "textConfig": {
                   "fontSize": 12,
@@ -1185,9 +1207,12 @@
         "view": {
           "allLayers": true,
           "id": "fit",
+          "lastOnly": false,
           "lat": 0,
+          "layer": "Layer 1",
           "lon": 0,
-          "padding": 300,
+          "padding": 200,
+          "shared": false,
           "zoom": 15
         }
       },
@@ -1212,7 +1237,7 @@
           "selectedFormat": 4
         }
       ],
-      "title": "Panel Title",
+      "title": "Charging State Map",
       "type": "geomap"
     },
     {
@@ -1396,7 +1421,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "schemaVersion": 38,
   "tags": [],
   "templating": {
@@ -1404,8 +1429,8 @@
       {
         "current": {
           "selected": false,
-          "text": "tem_sensor4",
-          "value": "tem_sensor4"
+          "text": "tem_sensor3",
+          "value": "tem_sensor3"
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
