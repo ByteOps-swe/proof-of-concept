@@ -667,92 +667,7 @@
           },
           "unit": "celsius"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temperature tem_sensor3"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temperature tem_sensor1"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temperature tem_sensor4"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temperature tem_sensor5"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "temperature"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -760,11 +675,11 @@
         "x": 12,
         "y": 10
       },
-      "id": 4,
+      "id": 11,
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -780,8 +695,8 @@
           "builderOptions": {
             "database": "default",
             "fields": [
-              "sensor_id",
               "temperature",
+              "sensor_id",
               "timestamp"
             ],
             "filters": [
@@ -789,7 +704,7 @@
                 "condition": "AND",
                 "filterType": "custom",
                 "key": "timestamp",
-                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "operator": "IS NOT NULL",
                 "restrictToFields": [
                   {
                     "label": "timestamp",
@@ -815,51 +730,12 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "format": 1,
-          "hide": false,
-          "meta": {
-            "builderOptions": {
-              "database": "default",
-              "fields": [
-                "sensor_id",
-                "temperature",
-                "timestamp"
-              ],
-              "filters": [
-                {
-                  "condition": "AND",
-                  "filterType": "custom",
-                  "key": "timestamp",
-                  "operator": "WITH IN DASHBOARD TIME RANGE",
-                  "restrictToFields": [
-                    {
-                      "label": "timestamp",
-                      "name": "timestamp",
-                      "picklistValues": [],
-                      "type": "DateTime"
-                    }
-                  ],
-                  "type": "datetime"
-                }
-              ],
-              "limit": 100,
-              "mode": "list",
-              "orderBy": [
-                {
-                  "dir": "ASC",
-                  "name": "timestamp"
-                }
-              ],
-              "table": "dynamic_table_temperature"
-            }
-          },
-          "queryType": "sql",
-          "rawSql": "SELECT \"sensor_id\", \"temperature\", \"timestamp\" FROM \"default\".\"dynamic_table_temperature\"  ORDER BY timestamp ASC",
-          "refId": "A",
-          "selectedFormat": 4
+          "queryType": "builder",
+          "rawSql": "SELECT \"temperature\", \"sensor_id\", \"timestamp\" FROM \"default\".\"dynamic_table_temperature\" WHERE   ( timestamp IS NOT NULL ) ORDER BY timestamp ASC LIMIT 100",
+          "refId": "A"
         }
       ],
-      "title": "Temperature Graph",
+      "title": "Panel Title",
       "type": "timeseries"
     },
     {
@@ -1009,7 +885,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic-by-name"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1056,7 +932,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": [
           {
@@ -1068,7 +945,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-red",
+                  "fixedColor": "dark-purple",
                   "mode": "fixed"
                 }
               }
@@ -1083,7 +960,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-orange",
+                  "fixedColor": "dark-blue",
                   "mode": "fixed"
                 }
               }
@@ -1098,22 +975,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "humidity hum_sensor5"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-purple",
+                  "fixedColor": "dark-yellow",
                   "mode": "fixed"
                 }
               }
@@ -1128,7 +990,22 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "blue",
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity hum_sensor5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
                   "mode": "fixed"
                 }
               }
@@ -1142,7 +1019,7 @@
         "x": 12,
         "y": 18
       },
-      "id": 6,
+      "id": 12,
       "options": {
         "legend": {
           "calcs": [
@@ -1162,8 +1039,8 @@
           "builderOptions": {
             "database": "default",
             "fields": [
-              "sensor_id",
               "humidity",
+              "sensor_id",
               "timestamp"
             ],
             "filters": [
@@ -1171,7 +1048,7 @@
                 "condition": "AND",
                 "filterType": "custom",
                 "key": "timestamp",
-                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "operator": "IS NOT NULL",
                 "restrictToFields": [
                   {
                     "label": "timestamp",
@@ -1197,50 +1074,12 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "format": 1,
-          "meta": {
-            "builderOptions": {
-              "database": "default",
-              "fields": [
-                "sensor_id",
-                "humidity",
-                "timestamp"
-              ],
-              "filters": [
-                {
-                  "condition": "AND",
-                  "filterType": "custom",
-                  "key": "timestamp",
-                  "operator": "WITH IN DASHBOARD TIME RANGE",
-                  "restrictToFields": [
-                    {
-                      "label": "timestamp",
-                      "name": "timestamp",
-                      "picklistValues": [],
-                      "type": "DateTime"
-                    }
-                  ],
-                  "type": "datetime"
-                }
-              ],
-              "limit": 100,
-              "mode": "list",
-              "orderBy": [
-                {
-                  "dir": "ASC",
-                  "name": "timestamp"
-                }
-              ],
-              "table": "dynamic_table_humidity"
-            }
-          },
-          "queryType": "sql",
-          "rawSql": "SELECT \"sensor_id\", \"humidity\", \"timestamp\" FROM \"default\".\"dynamic_table_humidity\" WHERE   ( timestamp  >= $__fromTime AND timestamp <= $__toTime ) ORDER BY timestamp ASC",
-          "refId": "A",
-          "selectedFormat": 4
+          "queryType": "builder",
+          "rawSql": "SELECT \"humidity\", \"sensor_id\", \"timestamp\" FROM \"default\".\"dynamic_table_humidity\" WHERE   ( timestamp IS NOT NULL ) ORDER BY timestamp ASC LIMIT 100",
+          "refId": "A"
         }
       ],
-      "title": "Humidity Graph",
+      "title": "Panel Title",
       "type": "timeseries"
     },
     {
@@ -1557,7 +1396,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "tags": [],
   "templating": {
@@ -1611,13 +1450,13 @@
     ]
   },
   "time": {
-    "from": "2023-12-14T11:13:04.000Z",
-    "to": "2023-12-14T12:43:18.000Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Dashboard",
   "uid": "ecf85db4-c8ac-44ae-97f2-4a68e19ffdd9",
-  "version": 59,
+  "version": 1,
   "weekStart": ""
 }
