@@ -1,0 +1,1428 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "link",
+      "url": "dashboard/db/Dashboard?sensor_id=$sen_id"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "max": 45,
+          "min": -15,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "links": [
+        {
+          "title": "test",
+          "url": "dashboard/db/Dashboard?sensor_id=$sen_id\r\n"
+        }
+      ],
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "value",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 16,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temperatura",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "padding": 300,
+          "zoom": 15
+        }
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "builderOptions": {
+            "0": "T",
+            "1": "h",
+            "2": "e",
+            "3": " ",
+            "4": "q",
+            "5": "u",
+            "6": "e",
+            "7": "r",
+            "8": "y",
+            "9": " ",
+            "10": "i",
+            "11": "s",
+            "12": " ",
+            "13": "n",
+            "14": "o",
+            "15": "t",
+            "16": " ",
+            "17": "a",
+            "18": " ",
+            "19": "s",
+            "20": "e",
+            "21": "l",
+            "22": "e",
+            "23": "c",
+            "24": "t",
+            "25": " ",
+            "26": "s",
+            "27": "t",
+            "28": "a",
+            "29": "t",
+            "30": "e",
+            "31": "m",
+            "32": "e",
+            "33": "n",
+            "34": "t",
+            "35": ".",
+            "database": "default",
+            "fields": [
+              "sensor_id",
+              "value",
+              "latitude",
+              "longitude",
+              "timestamp"
+            ],
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "key": "timestamp",
+                "operator": "WITH IN DASHBOARD TIME RANGE",
+                "restrictToFields": [
+                  {
+                    "label": "timestamp",
+                    "name": "timestamp",
+                    "picklistValues": [],
+                    "type": "DateTime"
+                  }
+                ],
+                "type": "datetime"
+              }
+            ],
+            "limit": 100,
+            "mode": "list",
+            "orderBy": [],
+            "table": "dynamic_table_temperature"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "0": "T",
+              "1": "h",
+              "2": "e",
+              "3": " ",
+              "4": "q",
+              "5": "u",
+              "6": "e",
+              "7": "r",
+              "8": "y",
+              "9": " ",
+              "10": "i",
+              "11": "s",
+              "12": " ",
+              "13": "n",
+              "14": "o",
+              "15": "t",
+              "16": " ",
+              "17": "a",
+              "18": " ",
+              "19": "s",
+              "20": "e",
+              "21": "l",
+              "22": "e",
+              "23": "c",
+              "24": "t",
+              "25": " ",
+              "26": "s",
+              "27": "t",
+              "28": "a",
+              "29": "t",
+              "30": "e",
+              "31": "m",
+              "32": "e",
+              "33": "n",
+              "34": "t",
+              "35": ".",
+              "database": "default",
+              "fields": [
+                "sensor_id",
+                "value",
+                "latitude",
+                "longitude",
+                "timestamp"
+              ],
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "timestamp",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "restrictToFields": [
+                    {
+                      "label": "timestamp",
+                      "name": "timestamp",
+                      "picklistValues": [],
+                      "type": "DateTime"
+                    }
+                  ],
+                  "type": "datetime"
+                }
+              ],
+              "limit": 100,
+              "mode": "list",
+              "orderBy": [],
+              "table": "dynamic_table_temperature"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_temperature\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_temperature\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time\r\nUNION ALL\r\nSELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_humidity\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_humidity\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Test map",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "This graph displays the temperature of the selected sensor.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 1,
+          "hide": false,
+          "meta": {
+            "builderOptions": {
+              "fields": [],
+              "limit": 100,
+              "mode": "list"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n  \"sensor_id\" as metric,\r\n  \"temperature\",\r\n  toDateTime(\"timestamp\") as time\r\nFROM \"dynamic_table_temperature\"\r\nWHERE\r\n  \"sensor_id\" = '$test_id'\r\nORDER BY \"timestamp\" ASC",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Single sensor",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "max": 50,
+          "min": -20,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 1,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "value",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 16,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temperature",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "padding": 300,
+          "zoom": 15
+        }
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "fields": [],
+              "limit": 100,
+              "mode": "list"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_temperature\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_temperature\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Temperature map",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "This graph displays the temperature of all temperature sensors.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "database": "default",
+            "fields": [
+              "temperature",
+              "sensor_id",
+              "timestamp"
+            ],
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "key": "timestamp",
+                "operator": "IS NOT NULL",
+                "restrictToFields": [
+                  {
+                    "label": "timestamp",
+                    "name": "timestamp",
+                    "picklistValues": [],
+                    "type": "DateTime"
+                  }
+                ],
+                "type": "datetime"
+              }
+            ],
+            "limit": 100,
+            "mode": "list",
+            "orderBy": [
+              {
+                "dir": "ASC",
+                "name": "timestamp"
+              }
+            ],
+            "table": "dynamic_table_temperature"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "database": "default",
+              "fields": [
+                "temperature",
+                "sensor_id",
+                "timestamp"
+              ],
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "timestamp",
+                  "operator": "IS NOT NULL",
+                  "restrictToFields": [
+                    {
+                      "label": "timestamp",
+                      "name": "timestamp",
+                      "picklistValues": [],
+                      "type": "DateTime"
+                    }
+                  ],
+                  "type": "datetime"
+                }
+              ],
+              "limit": 100,
+              "mode": "list",
+              "orderBy": [
+                {
+                  "dir": "ASC",
+                  "name": "timestamp"
+                }
+              ],
+              "table": "dynamic_table_temperature"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    temperature AS value\r\nFROM dynamic_table_temperature\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Temperature Graph",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 5,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "value",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 16,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Humidity",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "padding": 300,
+          "zoom": 15
+        }
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "fields": [],
+              "limit": 100,
+              "mode": "list"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_humidity\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_humidity\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Humidity Map",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "This graph displays the humidity values of all humidity sensors.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity hum_sensor1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity hum_sensor2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity hum_sensor3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity hum_sensor4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity hum_sensor5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "builderOptions": {
+            "database": "default",
+            "fields": [
+              "humidity",
+              "sensor_id",
+              "timestamp"
+            ],
+            "filters": [
+              {
+                "condition": "AND",
+                "filterType": "custom",
+                "key": "timestamp",
+                "operator": "IS NOT NULL",
+                "restrictToFields": [
+                  {
+                    "label": "timestamp",
+                    "name": "timestamp",
+                    "picklistValues": [],
+                    "type": "DateTime"
+                  }
+                ],
+                "type": "datetime"
+              }
+            ],
+            "limit": 100,
+            "mode": "list",
+            "orderBy": [
+              {
+                "dir": "ASC",
+                "name": "timestamp"
+              }
+            ],
+            "table": "dynamic_table_humidity"
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "database": "default",
+              "fields": [
+                "humidity",
+                "sensor_id",
+                "timestamp"
+              ],
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "timestamp",
+                  "operator": "IS NOT NULL",
+                  "restrictToFields": [
+                    {
+                      "label": "timestamp",
+                      "name": "timestamp",
+                      "picklistValues": [],
+                      "type": "DateTime"
+                    }
+                  ],
+                  "type": "datetime"
+                }
+              ],
+              "limit": 100,
+              "mode": "list",
+              "orderBy": [
+                {
+                  "dir": "ASC",
+                  "name": "timestamp"
+                }
+              ],
+              "table": "dynamic_table_humidity"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    humidity AS value\r\nFROM dynamic_table_humidity\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Humidity Graph",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Stato (attivo o spento) delle colonnine per caricare le auto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "Spento"
+                },
+                "true": {
+                  "color": "dark-green",
+                  "index": 1,
+                  "text": "Acceso"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fieldOptions": {
+        "state": {
+          "text": {
+            "mappingType": 1,
+            "valueMappings": [
+              {
+                "id": "false",
+                "text": "Spento"
+              },
+              {
+                "id": "true",
+                "text": "Acceso"
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 9,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "field": "state",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.3,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 25,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "field": "state",
+                  "fixed": "Acceso",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lastOnly": false,
+          "lat": 0,
+          "layer": "Layer 1",
+          "lon": 0,
+          "padding": 200,
+          "shared": false,
+          "zoom": 15
+        }
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "fields": [],
+              "limit": 100,
+              "mode": "list"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n  sensor_id,\r\n  type,\r\n  state,\r\n  latitude,\r\n  longitude,\r\n  timestamp\r\nFROM\r\n  dynamic_table_charging\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      MAX(timestamp) as max_timestamp\r\n    FROM\r\n      dynamic_table_charging\r\n    GROUP BY\r\n      sensor_id\r\n  )",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Charging State Map",
+      "type": "geomap"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "tem_sensor3",
+          "value": "tem_sensor3"
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT DISTINCT sensor_id FROM dynamic_table_temperature\nORDER BY sensor_id",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "test_id",
+        "options": [],
+        "query": "SELECT DISTINCT sensor_id FROM dynamic_table_temperature\nORDER BY sensor_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "Temperature Sensor",
+          "value": "Temperature Sensor"
+        },
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "PDEE91DDB90597936"
+        },
+        "definition": "SELECT DISTINCT `type` FROM (\n    SELECT `type` FROM dynamic_table_humidity\n    UNION ALL\n    SELECT `type` FROM dynamic_table_temperature\n)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "data_type",
+        "options": [],
+        "query": "SELECT DISTINCT `type` FROM (\n    SELECT `type` FROM dynamic_table_humidity\n    UNION ALL\n    SELECT `type` FROM dynamic_table_temperature\n)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Dashboard",
+  "uid": "ecf85db4-c8ac-44ae-97f2-4a68e19ffdd9",
+  "version": 1,
+  "weekStart": ""
+}

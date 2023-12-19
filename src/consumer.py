@@ -1,3 +1,5 @@
+#consumer.py
+
 import json
 from kafka import KafkaConsumer
 from clickhouse_driver import Client
@@ -23,6 +25,8 @@ clickhouse_client.execute('''
         `type` String,
         `temperature` Decimal(4, 2),
         `season` String,
+        `latitude` Float64,
+        `longitude` Float64,
         `timestamp` DateTime
     )
     ENGINE = MergeTree
@@ -36,6 +40,24 @@ clickhouse_client.execute('''
         `sensor_id` String,
         `type` String,
         `humidity` Decimal(5, 2),
+        `latitude` Float64,
+        `longitude` Float64,
+        `timestamp` DateTime   
+    )
+    ENGINE = MergeTree
+    ORDER BY timestamp
+''')
+
+
+# Creazione della tabella dynamic_table_charging
+clickhouse_client.execute('''
+    CREATE TABLE IF NOT EXISTS dynamic_table_charging
+    (
+        `sensor_id` String,
+        `type` String,
+        `state` Bool,
+        `latitude` Float64,
+        `longitude` Float64,
         `timestamp` DateTime   
     )
     ENGINE = MergeTree
@@ -61,23 +83,35 @@ def convert_timestamp(timestamp):
     timestamp_value = datetime.datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S.%f')
     return timestamp_value.strftime('%Y-%m-%d %H:%M:%S')
 
+
 def insert_temperature_data(clickhouse_client, data):
     temperature_value = float(data['temperature'].rstrip('C'))
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
         f"INSERT INTO dynamic_table_temperature VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {temperature_value}, '{data['season']}', '{timestamp_formatted}')"
+        f"'{data['type']}', {temperature_value}, '{data['season']}', '{data['latitude']}' , '{data['longitude']}' , '{timestamp_formatted}')"
     )
     logger.info("Dati sulla temperatura inseriti correttamente.")
+
 
 def insert_humidity_data(clickhouse_client, data):
     humidity_value = float(data['humidity'].rstrip('%'))
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
         f"INSERT INTO dynamic_table_humidity VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {humidity_value}, '{timestamp_formatted}')"
+        f"'{data['type']}', {humidity_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
     )
     logger.info("Dati sull'umidità inseriti correttamente.")
+
+
+def insert_charging_data(clickhouse_client, data):
+    charging_value = float(data['state'])
+    timestamp_formatted = convert_timestamp(data['timestamp'])
+    clickhouse_client.execute(
+        f"INSERT INTO dynamic_table_charging VALUES ('{data['sensor_id']}', "
+        f"'{data['type']}', {charging_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
+    )
+    logger.info("Dati sulla colonnina di ricarica inseriti correttamente.")
 
 for message in consumer:
     try:
@@ -88,6 +122,8 @@ for message in consumer:
             insert_temperature_data(clickhouse_client, data)
         elif data_type == 'humidity sensor':
             insert_humidity_data(clickhouse_client, data)
+        elif data_type == 'charging station':
+            insert_charging_data(clickhouse_client, data)
         else:
             logger.warning(f"Tipo non riconosciuto: {data['type']}")
             continue
