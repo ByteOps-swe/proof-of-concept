@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -730,9 +729,47 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "queryType": "builder",
-          "rawSql": "SELECT \"temperature\", \"sensor_id\", \"timestamp\" FROM \"default\".\"dynamic_table_temperature\" WHERE   ( timestamp IS NOT NULL ) ORDER BY timestamp ASC LIMIT 100",
-          "refId": "A"
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "default",
+              "fields": [
+                "temperature",
+                "sensor_id",
+                "timestamp"
+              ],
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "timestamp",
+                  "operator": "IS NOT NULL",
+                  "restrictToFields": [
+                    {
+                      "label": "timestamp",
+                      "name": "timestamp",
+                      "picklistValues": [],
+                      "type": "DateTime"
+                    }
+                  ],
+                  "type": "datetime"
+                }
+              ],
+              "limit": 100,
+              "mode": "list",
+              "orderBy": [
+                {
+                  "dir": "ASC",
+                  "name": "timestamp"
+                }
+              ],
+              "table": "dynamic_table_temperature"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    humidity AS value\r\nFROM dynamic_table_humidity\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "refId": "A",
+          "selectedFormat": 4
         }
       ],
       "title": "Temperature Graph",
@@ -1010,6 +1047,81 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_sensor5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1074,9 +1186,47 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "queryType": "builder",
-          "rawSql": "SELECT \"humidity\", \"sensor_id\", \"timestamp\" FROM \"default\".\"dynamic_table_humidity\" WHERE   ( timestamp IS NOT NULL ) ORDER BY timestamp ASC LIMIT 100",
-          "refId": "A"
+          "format": 0,
+          "meta": {
+            "builderOptions": {
+              "database": "default",
+              "fields": [
+                "humidity",
+                "sensor_id",
+                "timestamp"
+              ],
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "key": "timestamp",
+                  "operator": "IS NOT NULL",
+                  "restrictToFields": [
+                    {
+                      "label": "timestamp",
+                      "name": "timestamp",
+                      "picklistValues": [],
+                      "type": "DateTime"
+                    }
+                  ],
+                  "type": "datetime"
+                }
+              ],
+              "limit": 100,
+              "mode": "list",
+              "orderBy": [
+                {
+                  "dir": "ASC",
+                  "name": "timestamp"
+                }
+              ],
+              "table": "dynamic_table_humidity"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    humidity AS value\r\nFROM dynamic_table_humidity\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "refId": "A",
+          "selectedFormat": 4
         }
       ],
       "title": "Humidity Graph",
@@ -1421,7 +1571,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "5s",
+  "refresh": false,
   "schemaVersion": 38,
   "tags": [],
   "templating": {
@@ -1452,8 +1602,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Temperature Sensor",
-          "value": "Temperature Sensor"
+          "text": "Humidity Sensor",
+          "value": "Humidity Sensor"
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
@@ -1475,8 +1625,8 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2023-12-19T08:51:19.000Z",
+    "to": "2023-12-19T08:54:29.000Z"
   },
   "timepicker": {},
   "timezone": "",
