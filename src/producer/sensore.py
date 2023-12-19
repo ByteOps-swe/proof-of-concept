@@ -11,7 +11,7 @@ class Sensore(Thread):
     def __init__(self, sensor_id, sensor_type, latitude, longitude, topic):
         super().__init__()
         self.sensor_id = sensor_id
-        self.sensor_type = sensor_type  # Utilizza il valore passato invece di sovrascrivere con "default"
+        self.sensor_type = sensor_type  
         self.topic = topic
         self.latitude = latitude
         self.longitude = longitude
