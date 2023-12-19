@@ -729,7 +729,7 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "format": 1,
+          "format": 0,
           "meta": {
             "builderOptions": {
               "database": "default",
@@ -767,7 +767,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    humidity AS value\r\nFROM dynamic_table_humidity\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    temperature AS value\r\nFROM dynamic_table_temperature\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1290,7 +1290,7 @@
         "basemap": {
           "config": {},
           "name": "Layer 0",
-          "type": "default"
+          "type": "osm-standard"
         },
         "controls": {
           "mouseWheelZoom": true,
@@ -1309,7 +1309,7 @@
                   "field": "state",
                   "fixed": "dark-green"
                 },
-                "opacity": 0.4,
+                "opacity": 0.6,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -1601,7 +1601,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Humidity Sensor",
           "value": "Humidity Sensor"
         },
