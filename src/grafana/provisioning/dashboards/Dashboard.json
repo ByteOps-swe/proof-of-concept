@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -946,7 +947,7 @@
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "always",
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1253,15 +1254,15 @@
           "mappings": [
             {
               "options": {
-                "0": {
+                "false": {
                   "color": "dark-red",
                   "index": 0,
-                  "text": "False"
+                  "text": "Spento"
                 },
-                "1": {
+                "true": {
                   "color": "dark-green",
                   "index": 1,
-                  "text": "True"
+                  "text": "Acceso"
                 }
               },
               "type": "value"
@@ -1271,13 +1272,29 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
         },
         "overrides": []
+      },
+      "fieldOptions": {
+        "state": {
+          "text": {
+            "mappingType": 1,
+            "valueMappings": [
+              {
+                "id": "false",
+                "text": "Spento"
+              },
+              {
+                "id": "true",
+                "text": "Acceso"
+              }
+            ]
+          }
+        }
       },
       "gridPos": {
         "h": 8,
@@ -1290,7 +1307,7 @@
         "basemap": {
           "config": {},
           "name": "Layer 0",
-          "type": "osm-standard"
+          "type": "default"
         },
         "controls": {
           "mouseWheelZoom": true,
@@ -1309,7 +1326,7 @@
                   "field": "state",
                   "fixed": "dark-green"
                 },
-                "opacity": 0.6,
+                "opacity": 0.3,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -1317,7 +1334,7 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "fixed": 20,
+                  "fixed": 25,
                   "max": 15,
                   "min": 2
                 },
@@ -1331,7 +1348,7 @@
                 },
                 "text": {
                   "field": "state",
-                  "fixed": "",
+                  "fixed": "Acceso",
                   "mode": "field"
                 },
                 "textConfig": {
@@ -1571,7 +1588,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 38,
   "tags": [],
   "templating": {
@@ -1602,8 +1619,8 @@
       {
         "current": {
           "selected": true,
-          "text": "Humidity Sensor",
-          "value": "Humidity Sensor"
+          "text": "Temperature Sensor",
+          "value": "Temperature Sensor"
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
@@ -1625,8 +1642,8 @@
     ]
   },
   "time": {
-    "from": "2023-12-19T08:51:19.000Z",
-    "to": "2023-12-19T08:54:29.000Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
