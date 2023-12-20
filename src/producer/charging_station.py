@@ -7,21 +7,29 @@ from time import sleep
 import random
 
 class Charging_Station(Sensore):
-    def __init__(self, sensor_id, latitude, longitude, topic):
-        super().__init__(sensor_id, "Charging Station", latitude, longitude, topic)
-        self.current_state = True   #inizializzato a true -> funziona 
-
-
+    def __init__(self, sensor_id, sensor_city, sensor_cell, sensor_type, latitude, longitude, topic, state):
+        super().__init__(
+            sensor_id,
+            sensor_city,
+            sensor_cell,
+            sensor_type,
+            latitude,
+            longitude,
+            topic)
+        self.state = state
+        
     def run(self):
         while True:
             self.send_message()
             sleep(10)
 
-
     def send_message(self):
         self.update_state()
         data = {
             "sensor_id": self.sensor_id,
+            "state": self.sensor_state,
+            "sensor_city": self.sensor_city,
+            "sensor_cell": self.sensor_cell,
             "type": self.sensor_type,
             "state": self.current_state,
             "latitude": self.latitude,

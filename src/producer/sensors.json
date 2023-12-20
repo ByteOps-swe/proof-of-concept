@@ -1,0 +1,148 @@
+{
+    "temperature_list": [
+        {
+            "sensor_id": "tmp_1",
+            "sensor_city": "Vicenza",
+            "sensor_cell": "VI_1",
+            "sensor_type": "Temperature",
+            "latitude": 45.5454787,
+            "longitude": 11.5354214,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "tmp_2",
+            "sensor_city": "Verona",
+            "sensor_cell": "VR_1",
+            "sensor_type": "Temperature",
+            "latitude": 45.4383842,
+            "longitude": 10.9916215,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "tmp_3",
+            "sensor_city": "Venezia",
+            "sensor_cell": "VE_1",
+            "sensor_type": "Temperature",
+            "latitude": 45.4408474,   
+            "longitude": 12.3155151,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "tmp_4",
+            "sensor_city": "Treviso",
+            "sensor_cell": "TV_1",
+            "sensor_type": "Temperature",
+            "latitude": 45.666889,
+            "longitude": 12.243044,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "tmp_5",
+            "sensor_city": "Padova",
+            "sensor_cell": "PD_1",
+            "sensor_type": "Temperature",
+            "latitude": 45.406435,
+            "longitude": 11.876761,
+            "topic": "city_topic"
+        }
+    ],
+    "humidity_list": [
+        {
+            "sensor_id": "hum_1",
+            "sensor_city": "Vicenza",
+            "sensor_cell": "VI_1",
+            "sensor_type": "Humidity",
+            "latitude": 45.5454787,
+            "longitude": 11.5354214,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "hum_2",
+            "sensor_city": "Verona",
+            "sensor_cell": "VR_1",
+            "sensor_type": "Humidity",
+            "latitude": 45.4383842,
+            "longitude": 10.9916215,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "hum_3",
+            "sensor_city": "Venezia",
+            "sensor_cell": "VE_1",
+            "sensor_type": "Humidity",
+            "latitude": 45.4408474,   
+            "longitude": 12.3155151,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "hum_4",
+            "sensor_city": "Treviso",
+            "sensor_cell": "TV_1",
+            "sensor_type": "Humidity",
+            "latitude": 45.666889,
+            "longitude": 12.243044,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "hum_5",
+            "sensor_city": "Padova",
+            "sensor_cell": "PD_1",
+            "sensor_type": "Humidity",
+            "latitude": 45.406435,
+            "longitude": 11.876761,
+            "topic": "city_topic"
+        }
+    ],
+    "charging_station_list": [
+        {
+            "sensor_id": "cs_1",
+            "sensor_state": "True",
+            "sensor_city": "Vicenza",
+            "sensor_cell": "VI_1",
+            "sensor_type": "Charging Station",
+            "latitude": 45.5454787,
+            "longitude": 11.5354214,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "cs_2",
+            "sensor_state": "True",
+            "sensor_city": "Verona",
+            "sensor_cell": "VR_1",
+            "sensor_type": "Charging Station",
+            "latitude": 45.4383842,
+            "longitude": 10.9916215,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "cs_3",
+            "sensor_state": "True",
+            "sensor_city": "Venezia",
+            "sensor_cell": "VE_1",
+            "sensor_type": "Charging Station",
+            "latitude": 45.4408474,   
+            "longitude": 12.3155151,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "cs_4",
+            "sensor_state": "True",
+            "sensor_city": "Treviso",
+            "sensor_cell": "TV_1",
+            "sensor_type": "Charging Station",
+            "latitude": 45.666889,
+            "longitude": 12.243044,
+            "topic": "city_topic"
+        },
+        {
+            "sensor_id": "cs_5",
+            "sensor_state": "True",
+            "sensor_city": "Padova",
+            "sensor_cell": "PD_1",
+            "sensor_type": "Charging Station",
+            "latitude": 45.406435,
+            "longitude": 11.876761,
+            "topic": "city_topic"
+        }
+    ]
+}

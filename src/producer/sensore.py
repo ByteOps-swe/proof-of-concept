@@ -6,11 +6,13 @@ from threading import Thread
 
 
 class Sensore(Thread):
-    kafka_server = ["kafka:9092"]  # Server Kafka condiviso tra tutti i sensori
+    kafka_server = ["kafka:9092"] 
 
-    def __init__(self, sensor_id, sensor_type, latitude, longitude, topic):
+    def __init__(self, sensor_id, sensor_city, sensor_cell, sensor_type, latitude, longitude, topic):
         super().__init__()
         self.sensor_id = sensor_id
+        self.sensor_city = sensor_city
+        self.sensor_cell = sensor_cell
         self.sensor_type = sensor_type  
         self.topic = topic
         self.latitude = latitude

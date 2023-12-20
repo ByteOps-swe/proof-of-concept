@@ -1,33 +1,34 @@
-#temperature.py
-
 from threading import Thread
 from sensore import Sensore
 from datetime import datetime
 from time import sleep
 from random import uniform
 
-MAX_TEMPERATURE_CHANGE = 2.0
+max_temperature_change = 2.0
 
 class Temperature(Sensore):
 
     shared_temperature = None
-    min_shared_temperature = float('inf')  # Inizializzato con un valore massimo
-    last_sensor_readings = {}  # Dizionario per tenere traccia delle ultime letture dei sensori, chiave=sensor_id e valore=temperature
+    last_sensor_readings = {}
 
-    def __init__(self, sensor_id, latitude, longitude, topic):
-        super().__init__(sensor_id, "Temperature Sensor", latitude, longitude, topic)
+    def __init__(self, sensor_id, sensor_city, sensor_cell, sensor_type, latitude, longitude, topic):
+        super().__init__(
+            sensor_id,
+            sensor_city,
+            sensor_cell,
+            sensor_type,
+            latitude,
+            longitude,
+            topic)
         self.current_temperature = None
         self.current_season = None
         self.set_initial_temperature()
-        if Temperature.shared_temperature is None:
-            Temperature.shared_temperature = self.set_initial_temperature()
-
+        Temperature.shared_temperature = self.set_initial_temperature()
 
     def run(self):
         while True:
             self.send_message()
             sleep(10)
-
 
     def set_initial_temperature(self):
         current_month = datetime.now().month
@@ -44,7 +45,6 @@ class Temperature(Sensore):
             self.current_season = "Winter"
             return 0.0
 
-
     def update_season(self):
         current_month = datetime.now().month
         if 3 <= current_month <= 5:
@@ -58,7 +58,7 @@ class Temperature(Sensore):
 
     def send_message(self):
         self.update_season()
-        base_temperature_change = round(uniform(-MAX_TEMPERATURE_CHANGE, MAX_TEMPERATURE_CHANGE), 2)
+        base_temperature_change = round(uniform(-max_temperature_change, max_temperature_change), 2)
 
         if self.current_season == "Autumn":
             min_temp, max_temp = 5.0, 25.0
@@ -81,8 +81,8 @@ class Temperature(Sensore):
         if self.sensor_id in Temperature.last_sensor_readings:
             last_reading = Temperature.last_sensor_readings[self.sensor_id]
             diff = new_temperature - last_reading
-            if abs(diff) > MAX_TEMPERATURE_CHANGE:
-                new_temperature = last_reading + (MAX_TEMPERATURE_CHANGE if diff > 0 else -MAX_TEMPERATURE_CHANGE)
+            if abs(diff) > max_temperature_change:
+                new_temperature = last_reading + (max_temperature_change if diff > 0 else -max_temperature_change)
 
         Temperature.last_sensor_readings[self.sensor_id] = new_temperature
 
