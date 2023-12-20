@@ -1,5 +1,3 @@
-#charging_station.py
-
 from threading import Thread
 from sensore import Sensore
 from datetime import datetime
@@ -7,7 +5,7 @@ from time import sleep
 import random
 
 class Charging_Station(Sensore):
-    def __init__(self, sensor_id, sensor_city, sensor_cell, sensor_type, latitude, longitude, topic, state):
+    def __init__(self, sensor_id, sensor_city, sensor_cell, sensor_type, latitude, longitude, topic, intial_state = True):
         super().__init__(
             sensor_id,
             sensor_city,
@@ -16,8 +14,8 @@ class Charging_Station(Sensore):
             latitude,
             longitude,
             topic)
-        self.state = state
-        
+        self.current_state = intial_state
+
     def run(self):
         while True:
             self.send_message()
@@ -27,7 +25,6 @@ class Charging_Station(Sensore):
         self.update_state()
         data = {
             "sensor_id": self.sensor_id,
-            "state": self.sensor_state,
             "sensor_city": self.sensor_city,
             "sensor_cell": self.sensor_cell,
             "type": self.sensor_type,
@@ -39,7 +36,6 @@ class Charging_Station(Sensore):
         print(f"Sending station data from {self.sensor_id}: {data}")
         self.producer.send(self.topic, data)
         self.producer.flush()
-
 
     def update_state(self):
         if(random.random() > 0.9):

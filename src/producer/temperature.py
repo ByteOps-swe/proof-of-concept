@@ -92,6 +92,8 @@ class Temperature(Sensore):
         
         data = {
             "sensor_id": self.sensor_id,
+            "sensor_city": self.sensor_city,
+            "sensor_cell": self.sensor_cell,
             "type": self.sensor_type,
             "temperature": f"{round(self.current_temperature, 2)}C",
             "season": self.current_season,

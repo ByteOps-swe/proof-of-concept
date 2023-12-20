@@ -96,7 +96,6 @@
     "charging_station_list": [
         {
             "sensor_id": "cs_1",
-            "sensor_state": "True",
             "sensor_city": "Vicenza",
             "sensor_cell": "VI_1",
             "sensor_type": "Charging Station",
@@ -106,7 +105,6 @@
         },
         {
             "sensor_id": "cs_2",
-            "sensor_state": "True",
             "sensor_city": "Verona",
             "sensor_cell": "VR_1",
             "sensor_type": "Charging Station",
@@ -116,7 +114,6 @@
         },
         {
             "sensor_id": "cs_3",
-            "sensor_state": "True",
             "sensor_city": "Venezia",
             "sensor_cell": "VE_1",
             "sensor_type": "Charging Station",
@@ -126,7 +123,6 @@
         },
         {
             "sensor_id": "cs_4",
-            "sensor_state": "True",
             "sensor_city": "Treviso",
             "sensor_cell": "TV_1",
             "sensor_type": "Charging Station",
@@ -136,7 +132,6 @@
         },
         {
             "sensor_id": "cs_5",
-            "sensor_state": "True",
             "sensor_city": "Padova",
             "sensor_cell": "PD_1",
             "sensor_type": "Charging Station",
