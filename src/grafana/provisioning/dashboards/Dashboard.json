@@ -228,7 +228,7 @@
             "limit": 100,
             "mode": "list",
             "orderBy": [],
-            "table": "dynamic_table_temperature"
+            "table": "temperature_table"
           },
           "datasource": {
             "type": "grafana-clickhouse-datasource",
@@ -302,11 +302,11 @@
               "limit": 100,
               "mode": "list",
               "orderBy": [],
-              "table": "dynamic_table_temperature"
+              "table": "temperature_table"
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_temperature\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_temperature\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time\r\nUNION ALL\r\nSELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_humidity\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_humidity\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time",
+          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM temperature_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM temperature_table\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time\r\nUNION ALL\r\nSELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM humidity_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM humidity_table\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -412,7 +412,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  \"sensor_id\" as metric,\r\n  \"temperature\",\r\n  toDateTime(\"timestamp\") as time\r\nFROM \"dynamic_table_temperature\"\r\nWHERE\r\n  \"sensor_id\" = '$test_id'\r\nORDER BY \"timestamp\" ASC",
+          "rawSql": "SELECT\r\n  \"sensor_id\" as metric,\r\n  \"temperature\",\r\n  toDateTime(\"timestamp\") as time\r\nFROM \"temperature_table\"\r\nWHERE\r\n  \"sensor_id\" = '$test_id'\r\nORDER BY \"timestamp\" ASC",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -551,7 +551,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_temperature\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_temperature\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
+          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM temperature_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM temperature_table\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -676,7 +676,7 @@
                 "name": "timestamp"
               }
             ],
-            "table": "dynamic_table_temperature"
+            "table": "temperature_table"
           },
           "datasource": {
             "type": "grafana-clickhouse-datasource",
@@ -716,11 +716,11 @@
                   "name": "timestamp"
                 }
               ],
-              "table": "dynamic_table_temperature"
+              "table": "temperature_table"
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    temperature AS value\r\nFROM dynamic_table_temperature\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    temperature AS value\r\nFROM temperature_table\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -859,7 +859,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM dynamic_table_humidity\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM dynamic_table_humidity\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
+          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM humidity_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM humidity_table\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1134,7 +1134,7 @@
                 "name": "timestamp"
               }
             ],
-            "table": "dynamic_table_humidity"
+            "table": "humidity_table"
           },
           "datasource": {
             "type": "grafana-clickhouse-datasource",
@@ -1174,11 +1174,11 @@
                   "name": "timestamp"
                 }
               ],
-              "table": "dynamic_table_humidity"
+              "table": "humidity_table"
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    humidity AS value\r\nFROM dynamic_table_humidity\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    humidity AS value\r\nFROM humidity_table\r\nWHERE $__timeFilter(timestamp)\r\nORDER BY time, sensor_id",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1353,7 +1353,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id,\r\n  type,\r\n  state,\r\n  latitude,\r\n  longitude,\r\n  timestamp\r\nFROM\r\n  dynamic_table_charging\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      MAX(timestamp) as max_timestamp\r\n    FROM\r\n      dynamic_table_charging\r\n    GROUP BY\r\n      sensor_id\r\n  )",
+          "rawSql": "SELECT\r\n  sensor_id,\r\n  type,\r\n  state,\r\n  latitude,\r\n  longitude,\r\n  timestamp\r\nFROM\r\n  charging_station_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      MAX(timestamp) as max_timestamp\r\n    FROM\r\n      charging_station_table\r\n    GROUP BY\r\n      sensor_id\r\n  )",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1377,13 +1377,13 @@
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "SELECT DISTINCT sensor_id FROM dynamic_table_temperature\nORDER BY sensor_id",
+        "definition": "SELECT DISTINCT sensor_id FROM temperature_table\nORDER BY sensor_id",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "test_id",
         "options": [],
-        "query": "SELECT DISTINCT sensor_id FROM dynamic_table_temperature\nORDER BY sensor_id",
+        "query": "SELECT DISTINCT sensor_id FROM temperature_table\nORDER BY sensor_id",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1400,13 +1400,13 @@
           "type": "grafana-clickhouse-datasource",
           "uid": "PDEE91DDB90597936"
         },
-        "definition": "SELECT DISTINCT `type` FROM (\n    SELECT `type` FROM dynamic_table_humidity\n    UNION ALL\n    SELECT `type` FROM dynamic_table_temperature\n)",
+        "definition": "SELECT DISTINCT `type` FROM (\n    SELECT `type` FROM humidity_table\n    UNION ALL\n    SELECT `type` FROM temperature_table\n)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "data_type",
         "options": [],
-        "query": "SELECT DISTINCT `type` FROM (\n    SELECT `type` FROM dynamic_table_humidity\n    UNION ALL\n    SELECT `type` FROM dynamic_table_temperature\n)",
+        "query": "SELECT DISTINCT `type` FROM (\n    SELECT `type` FROM humidity_table\n    UNION ALL\n    SELECT `type` FROM temperature_table\n)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

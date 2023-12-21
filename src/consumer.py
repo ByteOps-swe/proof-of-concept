@@ -17,11 +17,13 @@ topic = "city_topic"
 clickhouse_client = Client(host='city_clickhouse')
 
 # Creazione delle tabelle se non esistono
-# Creazione della tabella dynamic_table_temperature
+# Creazione della tabella temperature_table
 clickhouse_client.execute('''
-    CREATE TABLE IF NOT EXISTS dynamic_table_temperature
+    CREATE TABLE IF NOT EXISTS temperature_table
     (
         `sensor_id` String,
+        `sensor_city` String,
+        `sensor_cell` String,
         `type` String,
         `temperature` Decimal(4, 2),
         `season` String,
@@ -33,11 +35,13 @@ clickhouse_client.execute('''
     ORDER BY timestamp
 ''')
 
-# Creazione della tabella dynamic_table_humidity
+# Creazione della tabella humidity_table
 clickhouse_client.execute('''
-    CREATE TABLE IF NOT EXISTS dynamic_table_humidity
+    CREATE TABLE IF NOT EXISTS humidity_table
     (
         `sensor_id` String,
+        `sensor_city` String,
+        `sensor_cell` String,
         `type` String,
         `humidity` Decimal(5, 2),
         `latitude` Float64,
@@ -49,11 +53,13 @@ clickhouse_client.execute('''
 ''')
 
 
-# Creazione della tabella dynamic_table_charging
+# Creazione della tabella charging_station_table
 clickhouse_client.execute('''
-    CREATE TABLE IF NOT EXISTS dynamic_table_charging
+    CREATE TABLE IF NOT EXISTS charging_station_table
     (
         `sensor_id` String,
+        `sensor_city` String,
+        `sensor_cell` String,
         `type` String,
         `state` Bool,
         `latitude` Float64,
@@ -88,8 +94,8 @@ def insert_temperature_data(clickhouse_client, data):
     temperature_value = float(data['temperature'].rstrip('C'))
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
-        f"INSERT INTO dynamic_table_temperature VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {temperature_value}, '{data['season']}', '{data['latitude']}' , '{data['longitude']}' , '{timestamp_formatted}')"
+        f"INSERT INTO temperature_table VALUES ('{data['sensor_id']}', "
+        f"'{data['sensor_city']}', '{data['sensor_cell']}', '{data['type']}', {temperature_value}, '{data['season']}', '{data['latitude']}' , '{data['longitude']}' , '{timestamp_formatted}')"
     )
     logger.info("Dati sulla temperatura inseriti correttamente.")
 
@@ -98,8 +104,8 @@ def insert_humidity_data(clickhouse_client, data):
     humidity_value = float(data['humidity'].rstrip('%'))
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
-        f"INSERT INTO dynamic_table_humidity VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {humidity_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
+        f"INSERT INTO humidity_table VALUES ('{data['sensor_id']}', "
+        f"'{data['sensor_city']}', '{data['sensor_cell']}', '{data['type']}', {humidity_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
     )
     logger.info("Dati sull'umidità inseriti correttamente.")
 
@@ -108,8 +114,8 @@ def insert_charging_data(clickhouse_client, data):
     charging_value = float(data['state'])
     timestamp_formatted = convert_timestamp(data['timestamp'])
     clickhouse_client.execute(
-        f"INSERT INTO dynamic_table_charging VALUES ('{data['sensor_id']}', "
-        f"'{data['type']}', {charging_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
+        f"INSERT INTO charging_station_table VALUES ('{data['sensor_id']}', "
+        f"'{data['sensor_city']}', '{data['sensor_cell']}', '{data['type']}', {charging_value}, {data['latitude']}, {data['longitude']}, '{timestamp_formatted}')"
     )
     logger.info("Dati sulla colonnina di ricarica inseriti correttamente.")
 
@@ -118,9 +124,9 @@ for message in consumer:
         data = message.value
         logger.debug("Received data from Kafka: %s", data)
         data_type = data['type'].lower()
-        if data_type == 'temperature sensor':
+        if data_type == 'temperature':
             insert_temperature_data(clickhouse_client, data)
-        elif data_type == 'humidity sensor':
+        elif data_type == 'humidity':
             insert_humidity_data(clickhouse_client, data)
         elif data_type == 'charging station':
             insert_charging_data(clickhouse_client, data)
