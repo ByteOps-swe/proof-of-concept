@@ -5,33 +5,31 @@ from datetime import datetime
 from time import sleep
 from random import uniform
 
-MAX_HUMIDITY_CHANGE = 5.0
+max_humidity_change = 5.0
 
 class Humidity(Sensore):
     shared_humidity = None
-    min_shared_humidity = 100.0  # Inizializzato con un valore massimo
-    last_sensor_readings = {}  # Dizionario per tenere traccia delle ultime letture dei sensori
+    last_sensor_readings = {}
 
-    def __init__(self, sensor_id, topic, latitude, longitude, initial_humidity=30.0):
-        super().__init__(sensor_id, "Humidity Sensor", latitude, longitude, topic)
-        self.current_humidity = None
-        self.set_initial_humidity(initial_humidity)
-        if Humidity.shared_humidity is None:
-            Humidity.shared_humidity = self.current_humidity
-
+    def __init__(self, sensor_id, sensor_city, sensor_cell, sensor_type, latitude, longitude, topic, initial_humidity=30.0):
+        super().__init__(
+            sensor_id,
+            sensor_city,
+            sensor_cell,
+            sensor_type,
+            latitude,
+            longitude,
+            topic)
+        self.current_humidity = initial_humidity
+        Humidity.shared_humidity = self.current_humidity
 
     def run(self):
         while True:
             self.send_message()
             sleep(10)
 
-
-    def set_initial_humidity(self, initial_humidity):
-        self.current_humidity = initial_humidity
-
-
     def send_message(self):
-        base_humidity_change = round(uniform(-MAX_HUMIDITY_CHANGE, MAX_HUMIDITY_CHANGE), 2)
+        base_humidity_change = round(uniform(-max_humidity_change, max_humidity_change), 2)
 
         # Controllo della differenza tra la temperatura minima e la nuova temperatura calcolata
         new_humidity = Humidity.shared_humidity + base_humidity_change
@@ -45,8 +43,8 @@ class Humidity(Sensore):
         if self.sensor_id in Humidity.last_sensor_readings:
             last_reading = Humidity.last_sensor_readings[self.sensor_id]
             diff = new_humidity - last_reading
-            if abs(diff) > MAX_HUMIDITY_CHANGE:
-                new_humidity = last_reading + (MAX_HUMIDITY_CHANGE if diff > 0 else -MAX_HUMIDITY_CHANGE)
+            if abs(diff) > max_humidity_change:
+                new_humidity = last_reading + (max_humidity_change if diff > 0 else -max_humidity_change)
 
         Humidity.last_sensor_readings[self.sensor_id] = new_humidity
 
@@ -56,6 +54,8 @@ class Humidity(Sensore):
 
         data = {
             "sensor_id": self.sensor_id,
+            "sensor_city": self.sensor_city,
+            "sensor_cell": self.sensor_cell,
             "type": self.sensor_type,
             "humidity": f"{round(self.current_humidity, 2)}%",
             "latitude": self.latitude,
