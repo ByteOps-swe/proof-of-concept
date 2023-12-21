@@ -69,7 +69,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "latitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "longitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -306,7 +331,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM temperature_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM temperature_table\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time\r\nUNION ALL\r\nSELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM humidity_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM humidity_table\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time",
+          "rawSql": "SELECT\r\n  sensor_id as ID,\r\n  sensor_city as city,\r\n  latitude,\r\n  longitude,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM temperature_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM temperature_table\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time\r\nUNION ALL\r\nSELECT\r\n  sensor_id as ID,\r\n  sensor_city as city,\r\n  latitude,\r\n  longitude,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM humidity_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM humidity_table\r\n    GROUP BY sensor_id\r\n  )\r\n  AND '$data_type' = \"type\"\r\nORDER BY time",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -454,7 +479,44 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "latitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "longitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -551,7 +613,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM temperature_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM temperature_table\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
+          "rawSql": "SELECT\r\n  sensor_id as ID,\r\n  sensor_city as city,\r\n  latitude,\r\n  longitude,\r\n  temperature as value,\r\n  toDateTime(timestamp) as time\r\nFROM temperature_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM temperature_table\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -631,7 +693,7 @@
       "options": {
         "legend": {
           "calcs": [
-            "last"
+            "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -762,7 +824,44 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "latitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "longitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -859,7 +958,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id as metric,\r\n  latitude as lat,\r\n  longitude as lon,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM humidity_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM humidity_table\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
+          "rawSql": "SELECT\r\n  sensor_id as ID,\r\n  sensor_city as city,\r\n  latitude,\r\n  longitude,\r\n  humidity as value,\r\n  toDateTime(timestamp) as time\r\nFROM humidity_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      max(timestamp) as max_timestamp\r\n    FROM humidity_table\r\n    GROUP BY sensor_id\r\n  )\r\nORDER BY time",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1089,7 +1188,7 @@
       "options": {
         "legend": {
           "calcs": [
-            "last"
+            "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -1231,7 +1330,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "latitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "longitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          }
+        ]
       },
       "fieldOptions": {
         "state": {
@@ -1353,7 +1477,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  sensor_id,\r\n  type,\r\n  state,\r\n  latitude,\r\n  longitude,\r\n  timestamp\r\nFROM\r\n  charging_station_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      MAX(timestamp) as max_timestamp\r\n    FROM\r\n      charging_station_table\r\n    GROUP BY\r\n      sensor_id\r\n  )",
+          "rawSql": "SELECT\r\n  sensor_id as ID,\r\n  sensor_city as city,\r\n  type,\r\n  state,\r\n  latitude,\r\n  longitude,\r\n  timestamp\r\nFROM\r\n  charging_station_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      MAX(timestamp) as max_timestamp\r\n    FROM\r\n      charging_station_table\r\n    GROUP BY\r\n      sensor_id\r\n  )",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1370,8 +1494,8 @@
       {
         "current": {
           "selected": true,
-          "text": "tem_sensor3",
-          "value": "tem_sensor3"
+          "text": "tmp_4",
+          "value": "tmp_4"
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
@@ -1392,9 +1516,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "Temperature Sensor",
-          "value": "Temperature Sensor"
+          "selected": false,
+          "text": "Humidity",
+          "value": "Humidity"
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
