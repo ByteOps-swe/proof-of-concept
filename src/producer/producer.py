@@ -14,7 +14,6 @@ sensors = []
 for sensor_type, sensor_list in sensor_data.items():
     for sensor_info in sensor_list:
         if sensor_type == "temperature_list":
-            print ("sono qua")
             sensor = Temperature(**sensor_info)
         elif sensor_type == "humidity_list":
             sensor = Humidity(**sensor_info)
