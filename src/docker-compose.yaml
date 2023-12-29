@@ -68,10 +68,17 @@ services:
     container_name: city_data_consumer
     volumes:
       - ./consumer.py:/app/consumer.py
+      - ./db_scripts:/app/db_scripts
     depends_on:
       - kafka
       - clickhouse
-    command: ["sh", "-c", "pip install kafka-python==2.0.2 clickhouse-driver==0.2.0 && python /app/consumer.py"]
+    command: >
+      sh -c "
+        pip install kafka-python==2.0.2 clickhouse-driver==0.2.0 &&
+        python /app/db_scripts/query_manager.py &&
+        sleep 10 &&
+        python /app/consumer.py
+      "
 
 volumes:
   grafana-storage: {}

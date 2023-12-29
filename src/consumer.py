@@ -13,66 +13,6 @@ logger = logging.getLogger(__name__)
 kafka_server = ["kafka:9092"]
 topic = "city_topic"
 
-# Connessione al client ClickHouse
-clickhouse_client = Client(host='city_clickhouse')
-
-# Creazione delle tabelle se non esistono
-# Creazione della tabella temperature_table
-clickhouse_client.execute('''
-    CREATE TABLE IF NOT EXISTS temperature_table
-    (
-        `sensor_id` String,
-        `sensor_city` String,
-        `sensor_cell` String,
-        `type` String,
-        `temperature` Decimal(4, 2),
-        `season` String,
-        `latitude` Float64,
-        `longitude` Float64,
-        `timestamp` DateTime
-    )
-    ENGINE = MergeTree
-    ORDER BY timestamp
-''')
-
-# Creazione della tabella humidity_table
-clickhouse_client.execute('''
-    CREATE TABLE IF NOT EXISTS humidity_table
-    (
-        `sensor_id` String,
-        `sensor_city` String,
-        `sensor_cell` String,
-        `type` String,
-        `humidity` Decimal(5, 2),
-        `latitude` Float64,
-        `longitude` Float64,
-        `timestamp` DateTime   
-    )
-    ENGINE = MergeTree
-    ORDER BY timestamp
-''')
-
-
-# Creazione della tabella charging_station_table
-clickhouse_client.execute('''
-    CREATE TABLE IF NOT EXISTS charging_station_table
-    (
-        `sensor_id` String,
-        `sensor_city` String,
-        `sensor_cell` String,
-        `type` String,
-        `state` Bool,
-        `latitude` Float64,
-        `longitude` Float64,
-        `timestamp` DateTime   
-    )
-    ENGINE = MergeTree
-    ORDER BY timestamp
-''')
-
-# Chiudi la connessione ClickHouse alla fine
-clickhouse_client.disconnect()
-
 # Creazione del consumatore Kafka
 consumer = KafkaConsumer(
     bootstrap_servers=kafka_server,
@@ -119,6 +59,7 @@ def insert_charging_data(clickhouse_client, data):
     )
     logger.info("Dati sulla colonnina di ricarica inseriti correttamente.")
 
+
 for message in consumer:
     try:
         data = message.value
@@ -135,6 +76,7 @@ for message in consumer:
             continue
     except Exception as e:
         logger.error(f"Errore durante l'inserimento dei dati: {e}. Dati ricevuti: {data}")
+
 
 # Chiudi la connessione ClickHouse alla fine
 clickhouse_client.disconnect()
