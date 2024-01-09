@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -348,8 +349,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "red",
-            "mode": "fixed"
+            "fixedColor": "orange",
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": true,
@@ -427,7 +428,7 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
-          "format": 1,
+          "format": 0,
           "hide": false,
           "meta": {
             "builderOptions": {
@@ -437,7 +438,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\r\n  \"sensor_id\" as metric,\r\n  \"temperature\",\r\n  toDateTime(\"timestamp\") as time\r\nFROM \"temperature_table\"\r\nWHERE\r\n  \"sensor_id\" = '$test_id'\r\nORDER BY \"timestamp\" ASC",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    temperature AS value\r\nFROM temperature_table\r\nWHERE \"sensor_id\" IN ($test_id)\r\nORDER BY time, sensor_id\r\n",
           "refId": "A",
           "selectedFormat": 4
         }
@@ -1177,6 +1178,81 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value hum_5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1486,6 +1562,121 @@
       ],
       "title": "Charging State Map",
       "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "PDEE91DDB90597936"
+      },
+      "description": "Stato (attivo o spento) delle colonnine per caricare le auto",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "Spento"
+                },
+                "true": {
+                  "color": "dark-green",
+                  "index": 1,
+                  "text": "Acceso"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "latitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "longitude"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 7
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "id": 13,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.2.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "PDEE91DDB90597936"
+          },
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "fields": [],
+              "limit": 100,
+              "mode": "list"
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "SELECT\r\n  sensor_id as ID,\r\n  sensor_city as city,\r\n  type,\r\n  state,\r\n  timestamp\r\nFROM\r\n  charging_station_table\r\nWHERE\r\n  (sensor_id, timestamp) IN (\r\n    SELECT\r\n      sensor_id,\r\n      MAX(timestamp) as max_timestamp\r\n    FROM\r\n      charging_station_table\r\n    GROUP BY\r\n      sensor_id\r\n  )",
+          "refId": "A",
+          "selectedFormat": 4
+        }
+      ],
+      "title": "Charging State Map",
+      "type": "table"
     }
   ],
   "refresh": "10s",
@@ -1496,8 +1687,16 @@
       {
         "current": {
           "selected": true,
-          "text": "tmp_1",
-          "value": "tmp_1"
+          "text": [
+            "tmp_2",
+            "tmp_5",
+            "tmp_3"
+          ],
+          "value": [
+            "tmp_2",
+            "tmp_5",
+            "tmp_3"
+          ]
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
@@ -1506,7 +1705,7 @@
         "definition": "SELECT DISTINCT sensor_id FROM temperature_table\nORDER BY sensor_id",
         "hide": 0,
         "includeAll": false,
-        "multi": false,
+        "multi": true,
         "name": "test_id",
         "options": [],
         "query": "SELECT DISTINCT sensor_id FROM temperature_table\nORDER BY sensor_id",
