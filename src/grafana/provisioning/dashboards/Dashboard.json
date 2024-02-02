@@ -127,7 +127,7 @@
         "layers": [
           {
             "config": {
-              "showLegend": true,
+              "showLegend": false,
               "style": {
                 "color": {
                   "field": "value",
@@ -337,7 +337,7 @@
           "selectedFormat": 4
         }
       ],
-      "title": "Test map",
+      "title": "Switch Map",
       "type": "geomap"
     },
     {
@@ -428,22 +428,26 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "PDEE91DDB90597936"
           },
+          "editorType": "sql",
           "format": 0,
           "hide": false,
           "meta": {
             "builderOptions": {
-              "fields": [],
+              "columns": [],
+              "database": "",
               "limit": 100,
-              "mode": "list"
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
             }
           },
-          "queryType": "sql",
-          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_id,\r\n    temperature AS value\r\nFROM temperature_table\r\nWHERE \"sensor_id\" IN ($test_id)\r\nORDER BY time, sensor_id\r\n",
-          "refId": "A",
-          "selectedFormat": 4
+          "pluginVersion": "4.0.1",
+          "queryType": "timeseries",
+          "rawSql": "SELECT\r\n    timestamp AS time,\r\n    sensor_city,\r\n    temperature AS value\r\nFROM temperature_table\r\nWHERE \"sensor_id\" IN ($test_id)\r\nORDER BY time, sensor_id\r\n",
+          "refId": "A"
         }
       ],
-      "title": "Single sensor",
+      "title": "Multi-Choice Sensors",
       "type": "timeseries"
     },
     {
@@ -493,9 +497,35 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "average temperature"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -513,7 +543,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "orientation": "auto",
         "showValue": "auto",
@@ -546,11 +576,11 @@
           },
           "pluginVersion": "4.0.1",
           "queryType": "table",
-          "rawSql": "SELECT \r\n    sensor_id,\r\n    AVG(temperature) AS \"average temperature\"\r\nFROM \r\n    temperature_table\r\nGROUP BY \r\n    sensor_id;",
+          "rawSql": "SELECT \r\n    sensor_city,\r\n    AVG(temperature) AS \"average temperature\"\r\nFROM \r\n    temperature_table\r\nGROUP BY \r\n    sensor_city;",
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Average Temperatures",
       "type": "barchart"
     },
     {
@@ -1796,11 +1826,15 @@
           "selected": true,
           "text": [
             "tmp_2",
-            "tmp_5"
+            "tmp_5",
+            "tmp_3",
+            "tmp_1"
           ],
           "value": [
             "tmp_2",
-            "tmp_5"
+            "tmp_5",
+            "tmp_3",
+            "tmp_1"
           ]
         },
         "datasource": {
@@ -1822,9 +1856,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "Humidity",
-          "value": "Humidity"
+          "selected": true,
+          "text": "Temperature",
+          "value": "Temperature"
         },
         "datasource": {
           "type": "grafana-clickhouse-datasource",
